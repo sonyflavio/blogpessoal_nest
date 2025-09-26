@@ -1,10 +1,12 @@
 import { IsNotEmpty } from 'class-validator';
 import {
-    Column,
-    Entity,
-    PrimaryGeneratedColumn,
-    UpdateDateColumn,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
+import { Tema } from '../../tema/entities/tema.entity';
 
 //dando nome a tabela do banco de dados
 @Entity({ name: 'tb_postagens' })
@@ -22,6 +24,11 @@ export class Postagem {
 
   @UpdateDateColumn()
   data: Date;
+
+  @ManyToOne(() => Tema, (tema) => tema.postagem, {
+    onDelete: 'CASCADE',
+  })
+  tema: Tema;
 }
 
 // id PRIMARY KEY AUTO_INCREMENT
